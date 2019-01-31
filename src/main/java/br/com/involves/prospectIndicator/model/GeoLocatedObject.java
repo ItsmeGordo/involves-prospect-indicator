@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public abstract class GeoLocatedObject {
 
+    private String name;
     private Double longitude;
-
     private Double latitude;
+
 }
