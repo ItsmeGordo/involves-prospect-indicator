@@ -1,18 +1,24 @@
-# README
+# Requisitos
 
-## Pré requisitos
+   Os requisitos para esse projeto podem ser encontrados em https://github.com/involvestecnologia/selecaoinvolves/blob/master/desafio-localizacao/README.md
+
+# Pré requisitos
 
    É necessário ter o [JDK](https://docs.oracle.com/cd/E19182-01/820-7851/inst_cli_jdk_javahome_t/) instalado na máquina e o [Maven](https://maven.apache.org/install.html)
 
-## Instalação
+# Instalação
 
+   ```
    mvn clean install
+   ```
 
-## Execução
+# Execução
 
+   ```
    mvn spring-boot:run
+   ```
 
-## Tecnologias e frameworks escolhidos
+# Tecnologias e frameworks escolhidos
 
 - **Java** - Escolhido por conta da familiaridade e também porque é utilizado na stack.
 
@@ -28,7 +34,7 @@
 
    - **Vuetify** - Material design para facilitar o desenvolvimento do front-end
 
-## Arquitetura
+# Arquitetura
 
 ``` 
 .
@@ -107,7 +113,7 @@ As entidades se encontram nessa parte. Foi escolhido ter uma classe GeoLocatedOb
 
 Os leitores compartilham a mesma maneira de ler o arquivo, mas cada um sabe como aplicar a regra de negócio para criar o seu próprio objeto. Por isso foi criada uma classe abstrata para leitura do arquivo e as classes filhas sabem como criar seus objetos.
 
-## TODO
+# TODO
 
 - [ ] Adicionar o projeto no [CloudForge](http://www.cloudforge.com) ou [Heroku](https://www.heroku.com) 
 - [ ] Criar Dockerfile e Docker Compose
