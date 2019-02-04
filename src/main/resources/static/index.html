@@ -1,48 +1,68 @@
-<html xmlns:v-on="http://www.w3.org/1999/xhtml">
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <title>Prospect Indicator</title>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'>
+    <link rel='stylesheet' href='https://unpkg.com/vuetify/dist/vuetify.min.css'>
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-<div id="prospectIndicator  ">
+<div id="app">
     <v-app>
         <v-content>
-            <v-container grid-list-xl>
-                <v-navigation-drawer permanent>
-                    <v-toolbar flat>
-                        <v-list>
-                            <v-list-tile>
-                                <v-list-tile-title class="title">
-                                    Application
-                                </v-list-tile-title>
-                            </v-list-tile>
-                        </v-list>
-                    </v-toolbar>
+            <v-container>
+                <div>
+                    <div id="employees">
+                        <v-navigation-drawer>
+                            <v-toolbar>
+                                <v-list>
+                                    <v-list-tile>
+                                        <v-list-tile-title class="title">
+                                            Funcionarios
+                                        </v-list-tile-title>
+                                    </v-list-tile>
+                                </v-list>
+                            </v-toolbar>
 
-                    <v-divider></v-divider>
+                            <v-divider></v-divider>
 
-                    <v-list dense class="pt-0">
-                        <v-list-tile
-                                v-for="item in items"
-                                :key="item.title"
-                                @click=""
-                        >
-                            <v-list-tile-action>
-                                <v-icon>{{ item.icon }}</v-icon>
-                            </v-list-tile-action>
+                            <v-list dense class="pt-0">
+                                <v-list-tile v-for="item in items" :key="item.title" @click="">
+                                    <v-list-tile-action>
+                                        <v-icon>person</v-icon>
+                                    </v-list-tile-action>
 
-                            <v-list-tile-content>
-                                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                            </v-list-tile-content>
-                        </v-list-tile>
-                    </v-list>
-                </v-navigation-drawer>
+                                    <v-list-tile-content>
+                                        <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                            </v-list>
+                        </v-navigation-drawer>
+                    </div>
+                    <div id="shops">
+                        <v-data-table :headers="shopHeaders" :items="shops" class="elevation-1">
+                            <template slot="items" slot-scope="props">
+                                <td>{{ props.shop.name }}</td>
+                                <td>{{ props.shop.latitude }}</td>
+                                <td>{{ props.shop.longitude }}</td>
+                                <td>{{ props.distance }}</td>
+                            </template>
+                        </v-data-table>
+                    </div>
+                </div>
+            </v-container>
+            <v-container>
+
             </v-container>
         </v-content>
     </v-app>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+<script src='https://unpkg.com/vue/dist/vue.js'></script>
+<script src='https://unpkg.com/vuetify/dist/vuetify.min.js'></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="js/index.js"></script>
 </body>
 </html>
