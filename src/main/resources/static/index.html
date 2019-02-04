@@ -12,50 +12,41 @@
 <body>
 <div id="app">
     <v-app>
+        <v-navigation-drawer app fixed clipped>
+
+            <v-divider></v-divider>
+
+            <v-list dense class="pt-0">
+                <v-toolbar>
+                    <v-list>
+                        <v-list-tile>
+                            <v-list-tile-title class="title">
+                                Funcionarios
+                            </v-list-tile-title>
+                        </v-list-tile>
+                    </v-list>
+                </v-toolbar>
+                <v-list-tile v-for="item in items" :key="item.title" @click="">
+                    <v-list-tile-action>
+                        <v-icon>person</v-icon>
+                    </v-list-tile-action>
+
+                    <v-list-tile-content>
+                        <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+            </v-list>
+        </v-navigation-drawer>
         <v-content>
-            <v-container>
-                <div>
-                    <div id="employees">
-                        <v-navigation-drawer>
-                            <v-toolbar>
-                                <v-list>
-                                    <v-list-tile>
-                                        <v-list-tile-title class="title">
-                                            Funcionarios
-                                        </v-list-tile-title>
-                                    </v-list-tile>
-                                </v-list>
-                            </v-toolbar>
-
-                            <v-divider></v-divider>
-
-                            <v-list dense class="pt-0">
-                                <v-list-tile v-for="item in items" :key="item.title" @click="">
-                                    <v-list-tile-action>
-                                        <v-icon>person</v-icon>
-                                    </v-list-tile-action>
-
-                                    <v-list-tile-content>
-                                        <v-list-tile-title>{{ item.name }}</v-list-tile-title>
-                                    </v-list-tile-content>
-                                </v-list-tile>
-                            </v-list>
-                        </v-navigation-drawer>
-                    </div>
-                    <div id="shops">
-                        <v-data-table :headers="shopHeaders" :items="shops" class="elevation-1">
-                            <template slot="items" slot-scope="props">
-                                <td>{{ props.shop.name }}</td>
-                                <td>{{ props.shop.latitude }}</td>
-                                <td>{{ props.shop.longitude }}</td>
-                                <td>{{ props.distance }}</td>
-                            </template>
-                        </v-data-table>
-                    </div>
-                </div>
-            </v-container>
-            <v-container>
-
+            <v-container fluid>
+                <v-data-table :headers="shopHeaders" :items="shops" class="elevation-1">
+                    <template slot="items" slot-scope="props">
+                        <td>{{ props.shop.name }}</td>
+                        <td>{{ props.shop.latitude }}</td>
+                        <td>{{ props.shop.longitude }}</td>
+                        <td>{{ props.distance }}</td>
+                    </template>
+                </v-data-table>
             </v-container>
         </v-content>
     </v-app>
