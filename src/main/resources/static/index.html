@@ -26,7 +26,7 @@
                         </v-list-tile>
                     </v-list>
                 </v-toolbar>
-                <v-list-tile v-for="item in items" :key="item.title" @click="selectEmployee(item)">
+                <v-list-tile v-for="item in items" :key="item.title" @click="getShopsByEmployee(item)">
                     <v-list-tile-action>
                         <v-icon color="red darken-4">person</v-icon>
                     </v-list-tile-action>
@@ -41,10 +41,10 @@
             <v-container fluid>
                 <v-data-table :headers="shopHeaders" :items="shops" class="elevation-1">
                     <template slot="items" slot-scope="props">
-                        <td>{{ props.shop.name }}</td>
-                        <td>{{ props.shop.latitude }}</td>
-                        <td>{{ props.shop.longitude }}</td>
-                        <td>{{ props.distance }}</td>
+                        <td>{{ props.item.shop.name }}</td>
+                        <td>{{ props.item.shop.latitude }}</td>
+                        <td>{{ props.item.shop.longitude }}</td>
+                        <td>{{ props.item.distance }}</td>
                     </template>
                 </v-data-table>
             </v-container>

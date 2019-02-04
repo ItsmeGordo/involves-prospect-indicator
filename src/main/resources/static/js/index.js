@@ -25,7 +25,8 @@ new Vue({
                  this.items = response.data;
              });
          },
-        getShopsByEmployee: function() {
+        getShopsByEmployee: function(item) {
+            this.selectedEmployee = item;
             if (this.selectedEmployee != null) {
                 var params = {params: {name: this.selectedEmployee.name, employee_lat: this.selectedEmployee.latitude, employee_log: this.selectedEmployee.longitude, radius:2}};
                 axios.get('/api/shop/getShopsInRadius', params).then(response => {
