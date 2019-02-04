@@ -15,17 +15,26 @@ new Vue({
           { text: 'Longitude', value: 'longitude', sortable: false },
           { text: 'Distance (KM)', value: 'carbs', sortable: false }
         ],
-        shops: []
+        shops: [],
+        selectedEmployee: null
       }
     },
     methods: {
-        load: function() {
+        getEmployees: function() {
              axios.get('/api/employee/getEmployees').then(response => {
                  this.items = response.data;
              });
-         }
+         },
+        getShopsByEmployee: function() {
+            if (this.selectedEmployee != null) {
+                var params = {params: {name: this.selectedEmployee.name, employee_lat: this.selectedEmployee.latitude, employee_log: this.selectedEmployee.longitude, radius:2}};
+                axios.get('/api/shop/getShopsInRadius', params).then(response => {
+                    this.shops = response.data;
+                });
+            }
+        }
         },
     mounted () {
-        this.load();
+        this.getEmployees();
     }
 })
