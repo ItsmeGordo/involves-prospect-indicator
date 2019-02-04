@@ -4,7 +4,7 @@
 
 # Pré requisitos
 
-   É necessário ter o [JDK](https://docs.oracle.com/cd/E19182-01/820-7851/inst_cli_jdk_javahome_t/) instalado na máquina e o [Maven](https://maven.apache.org/install.html)
+   É necessário ter o [JDK](https://docs.oracle.com/cd/E19182-01/820-7851/inst_cli_jdk_javahome_t/) e [Maven](https://maven.apache.org/install.html) instalados na máquina para poder executar o projeto.
 
 # Instalação
 
