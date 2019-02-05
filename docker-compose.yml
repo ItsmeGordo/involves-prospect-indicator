@@ -1,6 +1,10 @@
-version: '3'
+version: '2.1'
+
 services:
-  docker-app:
+
+  prospect-indicator:
+    container_name: prospect-indicator
     image: itsmegordo/prospect-indicator
     ports:
-    - "8080:8080"
+      - "8080:8080"
+    restart: unless-stopped
