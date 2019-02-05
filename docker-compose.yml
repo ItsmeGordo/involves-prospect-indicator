@@ -1,0 +1,6 @@
+version: '3'
+services:
+  docker-app:
+    image: itsmegordo/prospect-indicator
+    ports:
+    - "8080:8080"
