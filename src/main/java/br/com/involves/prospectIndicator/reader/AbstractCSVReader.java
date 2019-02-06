@@ -1,10 +1,15 @@
 package br.com.involves.prospectIndicator.reader;
 
 import br.com.involves.prospectIndicator.model.GeoLocatedObject;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.*;
 import java.util.List;
 
+
+@Getter
+@Setter
 public abstract class AbstractCSVReader {
 
     protected String fileName;
@@ -19,22 +24,13 @@ public abstract class AbstractCSVReader {
     public BufferedReader reader() {
 
         try {
-            File file = new File(getClass().getClassLoader().getResource("files/" + fileName).getFile());
-            InputStream inputStream = new FileInputStream(file);
+            InputStream inputStream = getClass().getResourceAsStream("/files/" + fileName);
             return new BufferedReader(new InputStreamReader(inputStream));
-        } catch (NullPointerException | FileNotFoundException e) {
+        } catch (NullPointerException e) {
             System.out.println("O arquivo mandado não foi encontrado");
             return null;
         }
 
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
     }
 
 }
