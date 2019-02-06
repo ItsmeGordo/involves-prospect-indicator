@@ -6,18 +6,37 @@
 
    É necessário ter o [JDK](https://docs.oracle.com/cd/E19182-01/820-7851/inst_cli_jdk_javahome_t/) e [Maven](https://maven.apache.org/install.html) instalados na máquina para poder executar o projeto.
 
-# Instalação
+# Instalação e execução
+
+### Local
+
+Para instalar os pacotes necessarios e gerar o pacote para executar, é preciso executar os seguintes comandos.
 
    ```
    mvn clean install
    ```
 
-# Execução
+Para executar o projeto localmente, na pasta raiz do projeto executar o comando
 
    ```
    mvn spring-boot:run
    ```
 
+### Docker
+
+O projeto também está pronto para o Docker. Na pasta raiz do projeto é preciso executar o comando abaixo para gerar o JAR do projeto, que sera utilizado para montar a imagem do Docker e logo depois gerar a imagem que será utilizada no Docker.
+
+   ```
+   mvn clean package
+   docker build -t itsmegordo/prospect-indicator .
+   ```
+
+Em seguida, dentro de src/main/resources/docker tem o docker-compose para facilitar a inicialização.
+
+   ```
+   docker-compose up -d
+   ```
+   
 # Tecnologias e frameworks escolhidos
 
 - **Java** - Escolhido por conta da familiaridade e também porque é utilizado na stack.
