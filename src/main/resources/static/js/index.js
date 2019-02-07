@@ -33,6 +33,19 @@ new Vue({
                     this.shops = response.data;
                 });
             }
+        },
+        downloadShopsList: function() {
+            if (this.selectedEmployee != null) {
+                var params = {params: {name: this.selectedEmployee.name, employee_lat: this.selectedEmployee.latitude, employee_log: this.selectedEmployee.longitude, radius:2}};
+                axios.get('/api/shop/downloadShopsInRadius', params).then(response => {
+                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', this.selectedEmployee.name + '.csv');
+                    document.body.appendChild(link);
+                    link.click();
+                });
+            }
         }
         },
     mounted () {
