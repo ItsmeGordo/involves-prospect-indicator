@@ -40,9 +40,13 @@
         <v-content>
             <v-container fluid>
                 <v-layout justify-end row>
+                    <v-btn small round right color="primary" class="mb-2" justify-end row @click="downloadBestRoute">
+                        <v-icon left dark>cloud_download</v-icon>
+                        Melhor Rota
+                    </v-btn>
                     <v-btn small round right color="primary" class="mb-2" justify-end row @click="downloadShopsList">
                         <v-icon left dark>cloud_download</v-icon>
-                        Download Lojas
+                        Lojas
                     </v-btn>
                 </v-layout>
                 <v-data-table :headers="shopHeaders" :items="shops" class="elevation-1">

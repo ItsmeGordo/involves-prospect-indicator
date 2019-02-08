@@ -125,7 +125,8 @@ Foi criado um DTO para poder mostrar a distancia no frontend, já que os dados i
 
 ### Helper
 
-Todas as funções que se referem a calculo estão nas classes contidas nessa pasta. No caso existe apenas uma classe aqui dentro, que é a GeoMathHelper.java. Ela é responsável por aplicar a função de Haversine e retornar a distancia e também de calcular as lojas que estão dentro do raio especifico.
+Todas as funções que se referem a calculo e funções de ajuda estão nas classes contidas nessa pasta. 
+Existe hoje, a classe GeoMathHelper.java, que faz o calculo de distancia dos pontos com a função de Haversine, também retorna as lojas dentro de um raio especifico a partir de um ponto. E também existe a TravellerSalesmanHelper.java, que calcula a melhor rota para o usuário dentro das lojas que ele precisa visitar.
 
 ### Model
 
@@ -140,7 +141,8 @@ Os leitores compartilham a mesma maneira de ler o arquivo, mas cada um sabe como
 - [x] Adicionar o projeto no [CloudForge](http://www.cloudforge.com) ou [Heroku](https://www.heroku.com) 
 - [x] Criar Dockerfile e Docker Compose
 - [x] Download da tabela em CSV
-- [ ] Adicionar os dados em um banco de dados H2 (Apenas para fins didáticos)
 - [x] Criar função que calcula a melhor rota e disponibilizar para download para o usuário
+- [ ] Criar testes para os endpoints
+- [ ] Adicionar os dados em um banco de dados H2 (Apenas para fins didáticos)
 - [ ] Melhorar a função para busca das lojas que serão atendidas para não repetir a mesma loja para demais usuários
 - [ ] Adicionar paginação no backend (Como não existe registro de novos dados, não quis me preocupar com isso)
