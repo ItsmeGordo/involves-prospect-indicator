@@ -1,7 +1,9 @@
 package br.com.involves.prospectIndicator.controller;
 
+import br.com.involves.prospectIndicator.dto.BestRouteDTO;
 import br.com.involves.prospectIndicator.dto.ShopDistanceDTO;
 import br.com.involves.prospectIndicator.helper.GeoMathHelper;
+import br.com.involves.prospectIndicator.helper.TravellerSalesmanHelper;
 import br.com.involves.prospectIndicator.model.Employee;
 import br.com.involves.prospectIndicator.model.GeoLocatedObject;
 import br.com.involves.prospectIndicator.model.Shop;
@@ -12,6 +14,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,6 +54,25 @@ public class ShopController {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @GetMapping(value = "getBestRoute")
+    public BestRouteDTO getBestRoute(@RequestParam("name") String name, @RequestParam("employee_lat") double employeeLat, @RequestParam("employee_log") double employeeLog,
+                                     @RequestParam("radius") double radius) {
+        try {
+            LinkedList<GeoLocatedObject> points = new LinkedList<>();
+            Employee employee = Employee.builder().name(name).latitude(employeeLat).longitude(employeeLog).build();
+            points.add(employee);
+            ShopCSVReader csvReader = new ShopCSVReader("lojas.csv");
+            List<GeoLocatedObject> geoLocatedObjects = csvReader.readObjects();
+            List<Shop> shops = geoLocatedObjects.stream().map(geoLocatedObject -> (Shop) geoLocatedObject).collect(Collectors.toList());
+            points.addAll(GeoMathHelper.getShopInRadiusWithoutDistance(employee, shops, radius));
+            TravellerSalesmanHelper teste = new TravellerSalesmanHelper();
+            return teste.calculate(points);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

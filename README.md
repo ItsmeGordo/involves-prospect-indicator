@@ -141,6 +141,6 @@ Os leitores compartilham a mesma maneira de ler o arquivo, mas cada um sabe como
 - [x] Criar Dockerfile e Docker Compose
 - [x] Download da tabela em CSV
 - [ ] Adicionar os dados em um banco de dados H2 (Apenas para fins didáticos)
-- [ ] Criar função que calcula a melhor rota e disponibilizar para download para o usuário
+- [x] Criar função que calcula a melhor rota e disponibilizar para download para o usuário
 - [ ] Melhorar a função para busca das lojas que serão atendidas para não repetir a mesma loja para demais usuários
 - [ ] Adicionar paginação no backend (Como não existe registro de novos dados, não quis me preocupar com isso)

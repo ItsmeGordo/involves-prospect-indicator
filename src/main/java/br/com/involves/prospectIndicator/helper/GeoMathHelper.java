@@ -33,4 +33,15 @@ public class GeoMathHelper {
         }
         return shopsInRadius;
     }
+
+    public static List<Shop> getShopInRadiusWithoutDistance(Employee employee, List<Shop> shops, Double radius) {
+        List<Shop> shopsInRadius = new ArrayList<>();
+        for (Shop shop : shops) {
+            double distance = calcHaversine(employee, shop);
+            if (distance < radius) {
+                shopsInRadius.add(shop);
+            }
+        }
+        return shopsInRadius;
+    }
 }
