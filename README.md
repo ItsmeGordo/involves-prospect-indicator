@@ -60,55 +60,61 @@ Em seguida, dentro de src/main/resources/docker tem o docker-compose para facili
 
 ``` 
 .
-├── README.md
+├── Dockerfile
+├── mvnw
+├── mvnw.cmd
 ├── pom.xml
-├── prospectIndicator.iml
-├── src
-    ├── main
-    │   ├── java
-    │   │   └── br
-    │   │       └── com
-    │   │           └── involves
-    │   │               └── prospectIndicator
-    │   │                   ├── ProspectIndicatorApplication.java
-    │   │                   ├── controller
-    │   │                   │   ├── EmployeeController.java
-    │   │                   │   └── ShopController.java
-    │   │                   ├── dto
-    │   │                   │   └── ShopDistanceDTO.java
-    │   │                   ├── helper
-    │   │                   │   └── GeoMathHelper.java
-    │   │                   ├── model
-    │   │                   │   ├── Employee.java
-    │   │                   │   ├── GeoLocatedObject.java
-    │   │                   │   └── Shop.java
-    │   │                   └── reader
-    │   │                       ├── AbstractCSVReader.java
-    │   │                       ├── EmployeeCSVReader.java
-    │   │                       └── ShopCSVReader.java
-    │   └── resources
-    │       ├── application.properties
-    │       ├── files
-    │       │   ├── funcionarios.csv
-    │       │   └── lojas.csv
-    │       └── static
-    │           ├── css
-    │           │   └── style.css
-    │           ├── index.html
-    │           └── js
-    │               └── index.js
-    └── test
-        └── java
-            └── br
-                └── com
-                    └── involves
-                        └── prospectIndicator
-                            ├── ProspectIndicatorApplicationTests.java
-                            ├── helper
-                            │   └── GeoMathHelperTest.java
-                            └── reader
-                                ├── EmployeeCSVReaderTest.java
-                                └── ShopCSVReaderTest.java
+├── README.md
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── br
+    │   │       └── com
+    │   │           └── involves
+    │   │               └── prospectIndicator
+    │   │                   ├── controller
+    │   │                   │   ├── EmployeeController.java
+    │   │                   │   └── ShopController.java
+    │   │                   ├── dto
+    │   │                   │   ├── BestRouteDTO.java
+    │   │                   │   └── ShopDistanceDTO.java
+    │   │                   ├── helper
+    │   │                   │   ├── GeoMathHelper.java
+    │   │                   │   └── TravellerSalesmanHelper.java
+    │   │                   ├── model
+    │   │                   │   ├── Employee.java
+    │   │                   │   ├── GeoLocatedObject.java
+    │   │                   │   └── Shop.java
+    │   │                   ├── ProspectIndicatorApplication.java
+    │   │                   └── reader
+    │   │                       ├── AbstractCSVReader.java
+    │   │                       ├── EmployeeCSVReader.java
+    │   │                       └── ShopCSVReader.java
+    │   └── resources
+    │       ├── application.properties
+    │       ├── docker
+    │       │   └── docker-compose.yml
+    │       ├── files
+    │       │   ├── funcionarios.csv
+    │       │   └── lojas.csv
+    │       └── static
+    │           ├── css
+    │           │   └── style.css
+    │           ├── index.html
+    │           └── js
+    │               └── index.js
+    └── test
+        └── java
+            └── br
+                └── com
+                    └── involves
+                        └── prospectIndicator
+                            ├── helper
+                            │   └── GeoMathHelperTest.java
+                            ├── ProspectIndicatorApplicationTests.java
+                            └── reader
+                                ├── EmployeeCSVReaderTest.java
+                                └── ShopCSVReaderTest.java
 
 
 ```
