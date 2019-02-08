@@ -2,12 +2,15 @@ package br.com.involves.prospectIndicator.controller;
 
 import br.com.involves.prospectIndicator.dto.BestRouteDTO;
 import br.com.involves.prospectIndicator.dto.ShopDistanceDTO;
+import br.com.involves.prospectIndicator.facade.ShopFacade;
+import br.com.involves.prospectIndicator.helper.CsvHelper;
 import br.com.involves.prospectIndicator.helper.GeoMathHelper;
 import br.com.involves.prospectIndicator.helper.TravellerSalesmanHelper;
 import br.com.involves.prospectIndicator.model.Employee;
 import br.com.involves.prospectIndicator.model.GeoLocatedObject;
 import br.com.involves.prospectIndicator.model.Shop;
 import br.com.involves.prospectIndicator.reader.ShopCSVReader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletOutputStream;
@@ -22,21 +25,24 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/shop")
 public class ShopController {
 
-    @GetMapping(value = "getShopsInRadius")
+    @Autowired
+    private ShopFacade shopFacade;
+
+    @GetMapping("/getShopsInRadius")
     public List<ShopDistanceDTO> getShopsInRadius(@RequestParam("name") String name, @RequestParam("employee_lat") double employeeLat, @RequestParam("employee_log") double employeeLog,
                                                   @RequestParam("radius") double radius) {
-        return getShopDistanceDTOS(name, employeeLat, employeeLog, radius);
+        return shopFacade.getShopDistanceDTOS(name, employeeLat, employeeLog, radius);
     }
 
-    @GetMapping(value = "downloadShopsInRadius")
+    @GetMapping("/downloadShopsInRadius")
     public void downloadShopsInRadius(@RequestParam("name") String name, @RequestParam("employee_lat") double employeeLat, @RequestParam("employee_log") double employeeLog,
                                       @RequestParam("radius") double radius, HttpServletResponse response) {
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment;filename=shopsInRadius.csv");
         try {
             ServletOutputStream out = response.getOutputStream();
-            List<ShopDistanceDTO> shopDistanceDTOS = getShopDistanceDTOS(name, employeeLat, employeeLog, radius);
-            String stringCsv = generateCsv(shopDistanceDTOS);
+            List<ShopDistanceDTO> shopDistanceDTOS = shopFacade.getShopDistanceDTOS(name, employeeLat, employeeLog, radius);
+            String stringCsv = CsvHelper.generateCsvFromShopDistanceDTO(shopDistanceDTOS);
 
             InputStream in =
                     new ByteArrayInputStream(stringCsv.getBytes("UTF-8"));
@@ -62,7 +68,7 @@ public class ShopController {
         response.setHeader("Content-Disposition", "attachment;filename=shopsInRadius.csv");
         try {
             ServletOutputStream out = response.getOutputStream();
-            String stringCsv = this.generateBestRoute(name, employeeLat, employeeLog, radius);
+            String stringCsv = shopFacade.generateBestRouteCsv(name, employeeLat, employeeLog, radius);
 
             InputStream in =
                     new ByteArrayInputStream(stringCsv.getBytes("UTF-8"));
@@ -79,69 +85,6 @@ public class ShopController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        generateBestRoute(name, employeeLat, employeeLog, radius);
-        return;
     }
 
-    private String generateBestRoute(@RequestParam("name") String name, @RequestParam("employee_lat") double employeeLat, @RequestParam("employee_log") double employeeLog, @RequestParam("radius") double radius) {
-        try {
-            LinkedList<GeoLocatedObject> points = new LinkedList<>();
-            Employee employee = Employee.builder().name(name).latitude(employeeLat).longitude(employeeLog).build();
-            points.add(employee);
-            ShopCSVReader csvReader = new ShopCSVReader("lojas.csv");
-            List<GeoLocatedObject> geoLocatedObjects = csvReader.readObjects();
-            List<Shop> shops = geoLocatedObjects.stream().map(geoLocatedObject -> (Shop) geoLocatedObject).collect(Collectors.toList());
-            points.addAll(GeoMathHelper.getShopInRadiusWithoutDistance(employee, shops, radius));
-            TravellerSalesmanHelper travellerSalesmanHelper = new TravellerSalesmanHelper();
-            return this.generateCsv(travellerSalesmanHelper.calculate(points));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private List<ShopDistanceDTO> getShopDistanceDTOS(@RequestParam("name") String name, @RequestParam("employee_lat") double employeeLat, @RequestParam("employee_log") double employeeLog, @RequestParam("radius") double radius) {
-        Employee employee = Employee.builder().name(name).latitude(employeeLat).longitude(employeeLog).build();
-        ShopCSVReader csvReader = new ShopCSVReader("lojas.csv");
-        List<GeoLocatedObject> geoLocatedObjects = csvReader.readObjects();
-        List<Shop> shops = geoLocatedObjects.stream().map(geoLocatedObject -> (Shop) geoLocatedObject).collect(Collectors.toList());
-        return GeoMathHelper.getShopInRadius(employee, shops, radius);
-    }
-
-    private String generateCsv(List<ShopDistanceDTO> shopsInRadius) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Nome da Loja, Latitude, Longitude, Distancia");
-        sb.append("\n");
-        for (ShopDistanceDTO shopDistance : shopsInRadius) {
-            sb.append(shopDistance.getShop().getName());
-            sb.append(",");
-            sb.append(shopDistance.getShop().getLatitude());
-            sb.append(",");
-            sb.append(shopDistance.getShop().getLongitude());
-            sb.append(",");
-            sb.append(shopDistance.getDistance());
-            sb.append("\n");
-        }
-        return sb.toString();
-    }
-
-    private String generateCsv(BestRouteDTO bestRoute) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Sequencia, Ponto, Latitude, Longitude");
-        sb.append("\n");
-        int sequencia = 0;
-        for (GeoLocatedObject geoObject : bestRoute.getPoints()) {
-            sb.append(sequencia);
-            sb.append(",");
-            sb.append(geoObject.getName());
-            sb.append(",");
-            sb.append(geoObject.getLatitude());
-            sb.append(",");
-            sb.append(geoObject.getLongitude());
-            sb.append("\n");
-            sequencia++;
-        }
-
-        return sb.toString();
-    }
 }
