@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.involves</groupId>
 	<artifactId>prospectIndicator</artifactId>
-	<version>1.4.1-SNAPSHOT</version>
+	<version>1.4.1</version>
 	<name>prospectIndicator</name>
 	<description>Demo project for Spring Boot</description>
 
