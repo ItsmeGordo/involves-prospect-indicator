@@ -2,6 +2,8 @@ package br.com.involves.prospectIndicator.reader;
 
 import br.com.involves.prospectIndicator.model.GeoLocatedObject;
 import br.com.involves.prospectIndicator.model.Shop;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShopCSVReader extends AbstractCSVReader {
+
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private static final int NAME_POS = 0;
     private static final int LAT_POS = 1;
@@ -32,7 +36,7 @@ public class ShopCSVReader extends AbstractCSVReader {
             }
             return employees;
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Problema na leitura do arquivo de lojas", e);
             return null;
         }
     }
