@@ -1,4 +1,4 @@
-package br.com.involves.prospectIndicator.facade;
+package br.com.involves.prospectIndicator.facade.employee;
 
 import br.com.involves.prospectIndicator.model.Employee;
 import br.com.involves.prospectIndicator.model.GeoLocatedObject;

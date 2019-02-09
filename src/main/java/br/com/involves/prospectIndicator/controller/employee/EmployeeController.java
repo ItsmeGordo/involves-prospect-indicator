@@ -1,6 +1,6 @@
-package br.com.involves.prospectIndicator.controller;
+package br.com.involves.prospectIndicator.controller.employee;
 
-import br.com.involves.prospectIndicator.facade.EmployeeFacade;
+import br.com.involves.prospectIndicator.facade.employee.EmployeeFacade;
 import br.com.involves.prospectIndicator.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

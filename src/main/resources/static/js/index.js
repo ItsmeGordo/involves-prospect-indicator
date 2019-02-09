@@ -28,7 +28,7 @@ new Vue({
         getShopsByEmployee: function(item) {
             this.selectedEmployee = item;
             if (this.selectedEmployee != null) {
-                var params = {params: {name: this.selectedEmployee.name, employee_lat: this.selectedEmployee.latitude, employee_log: this.selectedEmployee.longitude, radius:2}};
+                var params = {params: {name: this.selectedEmployee.name, employeeLat: this.selectedEmployee.latitude, employeeLog: this.selectedEmployee.longitude, radius:2}};
                 axios.get('/api/shop/getShopsInRadius', params).then(response => {
                     this.shops = response.data;
                 });
@@ -36,7 +36,7 @@ new Vue({
         },
         downloadShopsList: function() {
             if (this.selectedEmployee != null) {
-                var params = {params: {name: this.selectedEmployee.name, employee_lat: this.selectedEmployee.latitude, employee_log: this.selectedEmployee.longitude, radius:2}};
+                var params = {params: {name: this.selectedEmployee.name, employeeLat: this.selectedEmployee.latitude, employeeLog: this.selectedEmployee.longitude, radius:2}};
                 axios.get('/api/shop/downloadShopsInRadius', params).then(response => {
                     const url = window.URL.createObjectURL(new Blob([response.data]));
                     const link = document.createElement('a');
@@ -49,7 +49,7 @@ new Vue({
         },
         downloadBestRoute: function() {
             if (this.selectedEmployee != null) {
-                var params = {params: {name: this.selectedEmployee.name, employee_lat: this.selectedEmployee.latitude, employee_log: this.selectedEmployee.longitude, radius:2}};
+                var params = {params: {name: this.selectedEmployee.name, employeeLat: this.selectedEmployee.latitude, employeeLog: this.selectedEmployee.longitude, radius:2}};
                 axios.get('/api/shop/downloadBestRoute', params).then(response => {
                     const url = window.URL.createObjectURL(new Blob([response.data]));
                     const link = document.createElement('a');
