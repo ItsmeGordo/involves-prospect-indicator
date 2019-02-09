@@ -49,22 +49,29 @@ Em seguida, dentro de src/main/resources/docker tem o docker-compose para facili
    - **Lombok** - Para facilitar o acesso as classes, não sendo necessário a criação de getters, setters, equals e hashcode;
    
    - **JUnit** - Para executar os testes unitarios;
+   
+   - **Log4j** - Biblioteca de log amplamente utilizada nas aplicações Java;
 
 - **Vue.js** - Escolhido pelo aprendizado, pois nunca havia trabalhado com ele, apenas com AngularJS.
    
-   - **Axios** - Para fazer as chamadas a api rest de maneira simples
+   - **Axios** - Para fazer as chamadas a api rest de maneira simples;
 
-   - **Vuetify** - Material design para facilitar o desenvolvimento do front-end
+   - **Vuetify** - Material design para facilitar o desenvolvimento do front-end;
 
 # Arquitetura
+
+A arquitetura do sistema foi decidida dessa maneira monolitica, pois ficaria mais simples para configurar o Docker.
+Sendo dessa maneira, é necessario configurar apenas um Dockerfile para gerar o build e também não precisa ter que subir e instalar dois projetos.
+Porém, da maneira que está, não seria trabalhoso separar em dois projetos em projetos distintos, um para o frontend e um para o backend.
 
 ``` 
 .
 ├── Dockerfile
+├── README.md
 ├── mvnw
 ├── mvnw.cmd
 ├── pom.xml
-├── README.md
+├── prospectIndicator.iml
 └── src
     ├── main
     │   ├── java
@@ -72,20 +79,29 @@ Em seguida, dentro de src/main/resources/docker tem o docker-compose para facili
     │   │       └── com
     │   │           └── involves
     │   │               └── prospectIndicator
+    │   │                   ├── ProspectIndicatorApplication.java
     │   │                   ├── controller
-    │   │                   │   ├── EmployeeController.java
-    │   │                   │   └── ShopController.java
+    │   │                   │   ├── employee
+    │   │                   │   │   └── EmployeeController.java
+    │   │                   │   └── shop
+    │   │                   │       ├── ShopController.java
+    │   │                   │       └── ShopVMI.java
     │   │                   ├── dto
     │   │                   │   ├── BestRouteDTO.java
     │   │                   │   └── ShopDistanceDTO.java
+    │   │                   ├── facade
+    │   │                   │   ├── employee
+    │   │                   │   │   └── EmployeeFacade.java
+    │   │                   │   └── shop
+    │   │                   │       └── ShopFacade.java
     │   │                   ├── helper
+    │   │                   │   ├── CsvHelper.java
     │   │                   │   ├── GeoMathHelper.java
     │   │                   │   └── TravellerSalesmanHelper.java
     │   │                   ├── model
     │   │                   │   ├── Employee.java
     │   │                   │   ├── GeoLocatedObject.java
     │   │                   │   └── Shop.java
-    │   │                   ├── ProspectIndicatorApplication.java
     │   │                   └── reader
     │   │                       ├── AbstractCSVReader.java
     │   │                       ├── EmployeeCSVReader.java
@@ -109,13 +125,12 @@ Em seguida, dentro de src/main/resources/docker tem o docker-compose para facili
                 └── com
                     └── involves
                         └── prospectIndicator
+                            ├── ProspectIndicatorApplicationTests.java
                             ├── helper
                             │   └── GeoMathHelperTest.java
-                            ├── ProspectIndicatorApplicationTests.java
                             └── reader
                                 ├── EmployeeCSVReaderTest.java
                                 └── ShopCSVReaderTest.java
-
 
 ```
 
